@@ -18,10 +18,7 @@ public class UserController {
     private UserService service;
 
     @ApiOperation(value = "获取用户列表", notes = "查询用户列表")
-    @ApiResponses({
-            @ApiResponse(code = 100, message = "异常数据")
-    })
-    @RequestMapping("/user/list")
+    @RequestMapping(value = "/user/list", method = RequestMethod.GET)
     public BaseResult<List<User>> selectList() {
         return BaseResult.successWithData(service.selectList());
     }
@@ -31,7 +28,7 @@ public class UserController {
     @RequestMapping(value = "/selectById", method = RequestMethod.GET)
     public BaseResult<User> selectById(@RequestParam("id") Long id) {
         User user = service.selectById(id);
-        if (user == null) return BaseResult.failWithCodeAndMsg(0, "为获取到数据");
+        if (user == null) return BaseResult.failWithStatusAndMsg(false, "获取不到数据");
         return BaseResult.successWithData(service.selectById(id));
     }
 
@@ -45,7 +42,7 @@ public class UserController {
     @RequestMapping(value = "/user/add", method = RequestMethod.POST)
     public BaseResult<User> addUser(@ApiIgnore @RequestBody User user) {
         User u = service.selectById(user.getId());
-        if (u != null) return BaseResult.failWithCodeAndMsg(0, "添加失败，用户信息已存在");
+        if (u != null) return BaseResult.failWithStatusAndMsg(false, "添加失败，用户信息已存在");
         return BaseResult.successWithData(service.insert(user));
     }
 
@@ -65,7 +62,8 @@ public class UserController {
     @ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "Long")
     @RequestMapping(value = "/user/delete", method = RequestMethod.DELETE)
     public BaseResult<User> deleteUser(@RequestParam("id") Long id) {
-        return BaseResult.successWithCodeAndMsg(0, service.deleteById(id) ? "成功" : "失败");
+        boolean bool = service.deleteById(id);
+        return BaseResult.successWithStatusAndMsg(bool, "删除用户" + (bool ? "成功" : "失败"));
     }
 
     @ApiOperation(value = "分页获取用户信息", notes = "根据current和size来获取用户列表数据")
@@ -73,7 +71,7 @@ public class UserController {
             @ApiImplicitParam(name = "current", value = "当前页", required = true, dataType = "Integer"),
             @ApiImplicitParam(name = "size", value = "每页的条数", required = true, dataType = "Integer")
     })
-    @RequestMapping("/selectPage")
+    @RequestMapping(value = "/selectPage", method = RequestMethod.POST)
     public BaseResult<IPage<User>> selectPage(@RequestParam int current, @RequestParam int size) {
         return BaseResult.successWithData(service.selectPage(current, size));
     }

@@ -8,11 +8,11 @@ import io.swagger.annotations.ApiModelProperty;
  */
 @ApiModel(description = "响应对象")
 public class BaseResult<T> {
-    private static final int SUCCESS_CODE = 0;
+    private static final boolean SUCCESS_STATUS = true;
     private static final String SUCCESS_MESSAGE = "成功";
 
-    @ApiModelProperty(value = "响应码", name = "code", required = true, example = "" + SUCCESS_CODE)
-    private int code;
+    @ApiModelProperty(value = "响应码", name = "status", required = true, example = "" + SUCCESS_STATUS)
+    private boolean status;
 
     @ApiModelProperty(value = "响应消息", name = "msg", required = true, example = SUCCESS_MESSAGE)
     private String msg;
@@ -20,22 +20,22 @@ public class BaseResult<T> {
     @ApiModelProperty(value = "响应数据", name = "data")
     private T data;
 
-    private BaseResult(int code, String msg, T data) {
-        this.code = code;
+    private BaseResult(boolean status, String msg, T data) {
+        this.status = status;
         this.msg = msg;
         this.data = data;
     }
 
     private BaseResult() {
-        this(SUCCESS_CODE, SUCCESS_MESSAGE);
+        this(SUCCESS_STATUS, SUCCESS_MESSAGE);
     }
 
-    private BaseResult(int code, String msg) {
-        this(code, msg, null);
+    private BaseResult(boolean status, String msg) {
+        this(status, msg, null);
     }
 
     private BaseResult(T data) {
-        this(SUCCESS_CODE, SUCCESS_MESSAGE, data);
+        this(SUCCESS_STATUS, SUCCESS_MESSAGE, data);
     }
 
     public static <T> BaseResult<T> success() {
@@ -46,24 +46,24 @@ public class BaseResult<T> {
         return new BaseResult<>(data);
     }
 
-    public static <T> BaseResult<T> successWithCodeAndMsg(int code, String msg) {
-        return new BaseResult<>(code, msg, null);
+    public static <T> BaseResult<T> successWithStatusAndMsg(boolean status, String msg) {
+        return new BaseResult<>(status, msg, null);
     }
 
-    public static <T> BaseResult<T> failWithCodeAndMsg(int code, String msg) {
-        return new BaseResult<>(code, msg, null);
+    public static <T> BaseResult<T> failWithStatusAndMsg(boolean status, String msg) {
+        return new BaseResult<>(status, msg, null);
     }
 
     public static <T> BaseResult<T> buildWithParam(ResponseParam param) {
-        return new BaseResult<>(param.getCode(), param.getMsg(), null);
+        return new BaseResult<>(param.getStatus(), param.getMsg(), null);
     }
 
-    public int getCode() {
-        return code;
+    public boolean getStatus() {
+        return status;
     }
 
-    public void setCode(int code) {
-        this.code = code;
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public String getMsg() {
@@ -84,24 +84,24 @@ public class BaseResult<T> {
 
 
     public static class ResponseParam {
-        private int code;
+        private boolean status;
         private String msg;
 
-        private ResponseParam(int code, String msg) {
-            this.code = code;
+        private ResponseParam(boolean status, String msg) {
+            this.status = status;
             this.msg = msg;
         }
 
-        public static ResponseParam buildParam(int code, String msg) {
-            return new ResponseParam(code, msg);
+        public static ResponseParam buildParam(boolean status, String msg) {
+            return new ResponseParam(status, msg);
         }
 
-        public int getCode() {
-            return code;
+        public boolean getStatus() {
+            return status;
         }
 
-        public void setCode(int code) {
-            this.code = code;
+        public void setStatus(boolean status) {
+            this.status = status;
         }
 
         public String getMsg() {
