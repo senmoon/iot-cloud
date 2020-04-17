@@ -18,6 +18,9 @@
     <modules>
         <module>iot-eureka-server</module>
         <module>iot-common</module>
+        <module>iot-config-server</module>
+        <module>iot-gateway</module>
+        <module>iot-user</module>
     </modules>
 
     <properties>
