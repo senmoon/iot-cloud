@@ -1,0 +1,40 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8100/eureka
+
+spring:
+  application:
+    name: user
+  cloud:
+    config:
+      label: master
+      name: ${spring.application.name}
+      profile: ${spring.profiles.active}
+      discovery:
+        enabled: true
+        service-id: iot-config-server
+  profiles:
+    active: dev #prod test
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+logging:
+  level:
+    io:
+      swagger:
+        models:
+          parameters:
+            AbstractSerializableParameter: error
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+custom:
+  protocol: http

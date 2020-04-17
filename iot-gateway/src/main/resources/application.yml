@@ -1,0 +1,28 @@
+eureka:
+  instance:
+    hostname: iot-gateway
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8100/eureka
+
+server:
+  port: 8300
+
+spring:
+  application:
+    name: cloud-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: user_route
+          uri: lb://user
+          predicates:
+            - Path=/user/**
+            #- Header=X-Request-Id, \d+      #请求头的X-Request-Id属性值要符合正则表达式
+          filters:
+            - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
