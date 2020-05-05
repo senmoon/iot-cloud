@@ -24,17 +24,4 @@ spring:
 
 logging:
   level:
-    io:
-      swagger:
-        models:
-          parameters:
-            AbstractSerializableParameter: error
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-
-custom:
-  protocol: http
+    org.iot.iotuser.mapper: debug

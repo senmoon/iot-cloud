@@ -12,17 +12,21 @@ server:
 
 spring:
   application:
-    name: cloud-gateway
+    name: gateway
   cloud:
     gateway:
       discovery:
         locator:
           enabled: true
       routes:
+        - id: sso_route
+          uri: lb://sso
+          predicates:
+            - Path=/sso/**
         - id: user_route
           uri: lb://user
           predicates:
-            - Path=/user/**
+            - Path=/user/{segment},/permission/{segment},/org/{segment}
             #- Header=X-Request-Id, \d+      #请求头的X-Request-Id属性值要符合正则表达式
           filters:
             - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin

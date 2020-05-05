@@ -3,11 +3,13 @@ package org.iot.iotcommon.config;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
+
 /**
  * 通用响应对象
  */
 @ApiModel(description = "响应对象")
-public class BaseResult<T> {
+public class BaseResult<T> implements Serializable {
     private static final boolean SUCCESS_STATUS = true;
     private static final String SUCCESS_MESSAGE = "成功";
 

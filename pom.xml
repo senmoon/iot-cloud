@@ -21,6 +21,8 @@
         <module>iot-config-server</module>
         <module>iot-gateway</module>
         <module>iot-user</module>
+        <module>iot-redis</module>
+        <module>iot-sso</module>
     </modules>
 
     <properties>
@@ -65,14 +67,5 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>
