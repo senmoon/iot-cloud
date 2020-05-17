@@ -22,3 +22,4 @@
 - iot-lamp(8900)
 - iot-pole(9000)
 - iot-project(9100)
+- iot-log(9200)
