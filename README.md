@@ -18,3 +18,7 @@
 - iot-redis(8500)
 - iot-sso(8600)
 - iot-file(8700)
+- iot-district(8800)
+- iot-lamp(8900)
+- iot-pole(9000)
+- iot-project(9100)
