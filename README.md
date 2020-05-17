@@ -14,3 +14,6 @@
 - iot-config-server(8200)
 - iot-gateway(8300)
 - iot-user(8400/8401/8402)
+- iot-redis(8500)
+- iot-sso(8600)
+- iot-file(8700)
