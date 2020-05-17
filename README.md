@@ -10,6 +10,7 @@
 
 项目：
 - iot-common 公共包
+- iot-domain
 - iot-eureka-server(8100)
 - iot-config-server(8200)
 - iot-gateway(8300)
